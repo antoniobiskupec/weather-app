@@ -1,5 +1,4 @@
 import { useState } from "react";
-import axios from "axios";
 
 function App() {
   const [data, setData] = useState({});
@@ -9,10 +8,13 @@ function App() {
 
   const searchLocation = (event) => {
     if (event.key === "Enter") {
-      axios.get(url).then((response) => {
-        setData(response.data);
-        console.log(response.data);
-      });
+      fetch(url)
+        .then((response) => response.json())
+        .then((data) => {
+          setData(data);
+          console.log(data);
+        })
+        .catch((error) => console.log(error));
       setLocation("");
     }
   };
@@ -29,24 +31,24 @@ function App() {
           type='text'
         ></input>
       </div>
-      <div className='container'>
-        <div className='top'>
-          <div className='location'>
-            <p>{data.name}</p>
+      {data.name !== undefined && (
+        <div className='container'>
+          <div className='top'>
+            <div className='location'>
+              <p>{data.name}</p>
+            </div>
+            <div className='temperature'>
+              {data.main ? <h1>{Math.round(data.main.temp)}°C</h1> : null}
+            </div>
           </div>
-          <div className='temperature'>
-            {data.main ? <h1>{Math.round(data.main.temp)}°C</h1> : null}
+          <div className='description bold'>
+            {data.weather ? <p>{data.weather[0].main}</p> : null}
           </div>
-        </div>
-        <div className='description bold'>
-          {data.weather ? <p>{data.weather[0].main}</p> : null}
-        </div>
 
-        {data.name != undefined && (
           <div className='bottom'>
             <div className='feels'>
               {data.main ? (
-                <p className='bold'>{data.main.feels_like}</p>
+                <p className='bold'>{Math.round(data.main.feels_like)}°C</p>
               ) : null}
               <p>Feels like</p>
             </div>
@@ -57,12 +59,14 @@ function App() {
               <p>Humidity</p>
             </div>
             <div className='wind'>
-              {data.wind ? <p className='bold'>{data.wind.speed}KM/h</p> : null}
+              {data.wind ? (
+                <p className='bold'>{data.wind.speed} KM/h</p>
+              ) : null}
               <p>Wind speed</p>
             </div>
           </div>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 }
