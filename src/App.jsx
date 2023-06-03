@@ -1,11 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function App() {
   const [data, setData] = useState({});
   const [location, setLocation] = useState("");
 
+  
   const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=5ab2e8c3c5c0ce369531c65092497e5e&units=metric`;
-
+  
   const searchLocation = (event) => {
     if (event.key === "Enter") {
       fetch(url)
