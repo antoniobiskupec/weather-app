@@ -24,6 +24,7 @@ h1 {
   position: relative;
   background-color: rgba(0, 149, 255, 0.497);
   color: #fff;
+
 }
 
 .app:before {
@@ -43,13 +44,54 @@ h1 {
   justify-content: center;
 }
 
+
 .app .input {
+  width: 16rem;
   padding: 0.7rem 1.5rem;
   font-size: 1.2rem;
   border-radius: 25px;
   border: 1px solid rgba(255, 255, 255, 0.3);
   background: rgba(255, 255, 255, 0.2);
   color: #f8f8f8;
+  text-align: center;
+}
+
+.app .input:focus {
+  border: 1px solid rgba(0, 149, 255, 0.497);
+}
+
+.app .input:hover {
+  border: 1px solid rgba(0, 149, 255, 0.497);
+  background: rgba(0, 149, 255, 0.1);
+}
+.app .input:hover::placeholder {
+  color: rgba(0, 149, 255, 0.497);
+}
+.app .input:focus::placeholder {
+  color: transparent;
+}
+
+
+.app .current {
+  width: 16rem;
+  padding: 0.7rem;
+  font-size: 1.2rem;
+  border-radius: 25px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.2);
+  color: #f8f8f8;
+  text-align: center;
+}
+
+.app .current-location {
+  display: flex;
+  justify-content: center;
+}
+
+.app .current:hover {
+  border: 3px solid rgba(0, 149, 255, 0.497);
+  color: rgba(0, 149, 255, 0.497);
+  background: rgba(0, 149, 255, 0.1)
 }
 
 ::placeholder {
@@ -111,4 +153,20 @@ h1 {
 
 .app .location {
   font-weight: bold;
+}
+
+.clear {
+  background-image: url(./Assets/Clear.jpeg);
+}
+
+.night {
+  background-image: url(./Assets//Night.png);
+}
+
+.rain {
+  background-image: url(./Assets/Rain.png);
+}
+
+.snow {
+  background-image: url(./Assets/Snow.png);
 }

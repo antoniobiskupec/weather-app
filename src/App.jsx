@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 
 function App() {
   const [data, setData] = useState({});
   const [location, setLocation] = useState("");
-
+  const [backgroundClass, setBackgroundClass] = useState('')
   
   const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=5ab2e8c3c5c0ce369531c65092497e5e&units=metric`;
   
@@ -20,18 +20,49 @@ function App() {
     }
   };
 
+  useEffect(() => {
+    if(data.weather) {
+      const weather = data.weather[0].main;
+      const background = getBackgroundByWeather(weather);
+      setBackgroundClass(background)
+    }
+  }, [data.weather, backgroundClass])
+
+  const getBackgroundByWeather = (weather) => {
+    switch(weather) {
+      case "Clear":
+        return "clear";
+      case "Night":
+        return "night";
+      case "Clouds":
+        return "rain";
+      case 'Rain':
+        return 'rain'
+      case "Snow":
+        return "snow";
+      default:
+        return "";
+    }
+  }
+
   return (
-    <div className='app'>
+    <div c  className={`app ${backgroundClass}`}
+    style={{
+      backgroundRepeat: "no-repeat",
+      backgroundSize: "cover",
+      backgroundPosition: "center",
+    }}>
       <div className='search'>
         <input
           className='input'
           value={location}
           onChange={(event) => setLocation(event.target.value)}
           onKeyUp={searchLocation}
-          placeholder='Enter location'
+          placeholder='Search for city'
           type='text'
         ></input>
       </div>
+      <div className="current-location"><button className="current">Current location</button></div>
       {data.name !== undefined && (
         <div className='container'>
           <div className='top'>
